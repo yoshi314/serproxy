@@ -51,7 +51,7 @@ int sio_open(sio_s *sio)
 	if (sio_isopen(sio))
 		return -1;
 					 
-	sprintf(filename, "/dev/ttyS%hd", sio->info.port - 1);
+	sprintf(filename, "/dev/ttyUSB%hd", sio->info.port - 1);
 
 	fd = open(filename, O_RDWR);
 
