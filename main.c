@@ -37,7 +37,7 @@ thr_startfunc_t serve_pipe(void *data);
 void debug(void);
 
 #if defined(__UNIX__)
-char cfgfile[] = "/etc/serproxy.cfg";
+char cfgfile[] = "serproxy.cfg";
 #elif defined(__WIN32__)
 char cfgfile[] = "serproxy.cfg";
 #endif
