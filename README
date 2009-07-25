@@ -107,10 +107,10 @@ port number, <n> is the tcp port number.
 
 Example:
 
-# Proxy ttyS0/COM1 to/from tcp port 5331
+# Proxy ttyUSB0/COM1 to/from tcp port 5331
 net_port1=5331
 
-# Proxy ttyS2/COM3 to/from tcp port 5333
+# Proxy ttyUSB2/COM3 to/from tcp port 5333
 net_port3=5333
 
 ---------------------------------------------------------------------
@@ -122,10 +122,10 @@ by appending a port number to the end of a particular directive.
 
 Example:
 
-# Override the global settings for ttyS0
+# Override the global settings for ttyUSB0
 comm_baud1=14400
 
-# Override the global settings for ttyS2/COM3
+# Override the global settings for ttyUSB2/COM3
 comm_baud3=9600
 comm_databits3=7
 comm_stopbits3=2
