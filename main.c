@@ -177,7 +177,7 @@ int waitclients(void)
 			perror("waitclients() - tcp_listen()");
 	}
 
-	printf("Serproxy - (C)1999 Stefano Busti - Waiting for clients\n");
+	printf("Serproxy - Waiting for clients\n");
 	
 	while (1)
 	{
