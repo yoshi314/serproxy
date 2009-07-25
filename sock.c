@@ -108,7 +108,7 @@ int tcp_listen(tcpsock_s *sock)
 tcpsock_s *tcp_accept(tcpsock_s *sock)
 {
 	struct sockaddr addr;
-	int addrlen;
+	socklen_t addrlen;
 	int fd;
 	tcpsock_s *newsock;
 	
