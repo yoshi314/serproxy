@@ -76,6 +76,10 @@ int readcfg(void)
 	cfg_s local;
 	serialinfo_s sinfo;
 	char *parity;
+
+	//for xon/xoff
+	char *xonxoff;
+	int b_xonxoff = 0;
 	
 	/* Read the global config settings */
 	cfg_fromfile(&cfg, cfgfile);
@@ -96,6 +100,7 @@ int readcfg(void)
 			//pipe_init(pipe);
 			if (pipe == NULL)
 				perrend("malloc(pipe_s)");
+			printf("setting up port %d\n",port);
 
 			cfg_init(&local, port);
 			
@@ -115,31 +120,61 @@ int readcfg(void)
 			/* Copy over the rest of the pipe's config */
 			pipe->timeout = local.ints[CFG_ITIMEOUT].val;
 			sinfo.port = port;
+
+			printf(" netport   : %d\n",local.ints[CFG_INETPORT].val);
+
 			sinfo.baud = local.ints[CFG_IBAUD].val;
+			printf(" baud      : %d\n",local.ints[CFG_IBAUD].val);
+
 			sinfo.stopbits = local.ints[CFG_ISTOP].val;
+			printf(" stop bits : %d\n",local.ints[CFG_ISTOP].val);
+
 			sinfo.databits = local.ints[CFG_IDATA].val;
+			printf(" data bits : %d\n",local.ints[CFG_ISTOP].val);
 
 			parity = local.strs[CFG_SPARITY].val;
 
 			if (strcmp(parity, "none") == 0)
 			{
 				sinfo.parity = SIO_PARITY_NONE;
+				printf(" parity    : none\n");
 			}
 			else if (strcmp(parity, "even") == 0)
 			{
 				sinfo.parity = SIO_PARITY_EVEN;
+				printf(" parity    : even\n");
 			}
 			else if (strcmp(parity, "odd") == 0)
 			{
 				sinfo.parity = SIO_PARITY_ODD;
+				printf(" parity    : odd\n");
 			}
 			else
 			{
 				errend("Unknown parity string '%s'", parity);
 			}
 
+			//xon/xoff stuff goes here
+			xonxoff = local.strs[CFG_XONXOFF].val;
+
+			if (strcmp(xonxoff, "off") == 0)
+			{
+				b_xonxoff = 0;
+			} 
+			else if (strcmp(xonxoff, "on") == 0)
+			{
+				b_xonxoff = 1;
+			}
+			else {
+				errend("Unknown XON/XOFF setting '%s'",xonxoff);
+			}
+			printf(" xon/xoff  : %s\n",b_xonxoff?"on":"off");
+
+			sinfo.xonxoff = b_xonxoff;
+
 			if (sio_setinfo(&pipe->sio, &sinfo))
 				errend("Unable to configure comm port %d", port);
+
 			
 			/* Finally add the pipe to the pipes list */
 			vlist_add(&pipes, pipes.tail, pipe);

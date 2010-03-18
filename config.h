@@ -16,6 +16,7 @@ typedef enum
 	CFG_SPARITY,
 	CFG_SALLOW,
 	CFG_SDENY,
+	CFG_XONXOFF,
 	CFG_SEND
 } cfg_str_t;
 

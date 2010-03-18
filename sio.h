@@ -28,6 +28,7 @@ typedef struct
 	int parity;
 	int stopbits;
 	int databits;
+	int xonxoff;
 } serialinfo_s;
 
 typedef struct

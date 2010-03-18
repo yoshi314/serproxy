@@ -194,8 +194,16 @@ int sio_open(sio_s *sio)
 	dcb.fDtrControl = DTR_CONTROL_DISABLE;
 	dcb.fDsrSensitivity = FALSE;
 	dcb.fTXContinueOnXoff = FALSE;
-	dcb.fOutX = FALSE;
-	dcb.fInX = FALSE;
+	if (sio->info.xonxoff == 1) {
+		printf(" xonxoff disabled \n");
+		dcb.fOutX = FALSE;
+		dcb.fInX = FALSE;
+	else {
+		printf(" xonxoff enabled \n");
+		dcb.fOutX = true;
+		dcb.fInX = true;
+	}
+
 	dcb.fErrorChar = FALSE;
 	dcb.fNull = FALSE;
 	dcb.fRtsControl = RTS_CONTROL_DISABLE;

@@ -25,7 +25,8 @@ cfg_item_i cfg_int_defs[CFG_IEND] = {
 cfg_item_s cfg_str_defs[CFG_SEND] = {
 	{"comm_parity", "none"},
 	{"net_allow", "all"},
-	{"net_deny", "none"}
+	{"net_deny", "none"},
+	{"xonxoff","off"}
 };
 
 int cfg_init(cfg_s *cfg, int comm_port)
